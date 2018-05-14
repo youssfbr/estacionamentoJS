@@ -5,13 +5,7 @@ function cadastraVeiculo(e) {
 	var placaCarro = document.getElementById('placaCarro').value;	
 	var time = new Date();
 
- 	if (!placaCarro) {
-		alert ("Por favor, preencha a placa do carro.");
-		return false;
-	} else if (!modeloCarro) {
-		alert ("Por favor, preencha o modelo do carro.");
-		return false;
-	}
+ 	
 
 	carro = {
 		modelo: modeloCarro,
