@@ -5,6 +5,14 @@ function cadastraVeiculo(e) {
 	var placaCarro = document.getElementById('placaCarro').value;	
 	var time = new Date();
 
+ 	if (!placaCarro) {
+		alert ("Por favor, preencha a placa do carro.");
+		return false;
+	} else if (!modeloCarro) {
+		alert ("Por favor, preencha o modelo do carro.");
+		return false;
+	}
+
 	carro = {
 		modelo: modeloCarro,
 		placa: placaCarro,
@@ -22,9 +30,25 @@ function cadastraVeiculo(e) {
 		localStorage.setItem('patio2', JSON.stringify(carros));
 	}
 	
+	document.getElementById('formulario').reset();
+
 	mostraPatio();
 
 	e.preventDefault();
+}
+
+function apagarVeiculo(placa) {
+	var carros = JSON.parse(localStorage.getItem('patio2'))
+
+	for (var i = 0; i < carros.length; i++) {
+		if (carros[i].placa == placa) {
+			carros.splice(i, 1);
+		}
+
+		localStorage.setItem('patio2', JSON.stringify(carros));
+	}
+
+	mostraPatio();
 }
 
 function mostraPatio() {
@@ -42,6 +66,11 @@ function mostraPatio() {
 		carrosResultado.innerHTML += '<tr><td>' + modelo +
 								'</td><td>' + placa +
 								'</td><td>' + hora + ' : ' + minutos +
+								'</td>' +
+
+								'<td><button class="btn btn-danger" onclick="apagarVeiculo(\'' + placa + '\')">Excluir</button></td>' +
+
+
 								'</tr>';
 	}
 }
